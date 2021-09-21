@@ -1,42 +1,39 @@
-import * as React from 'react'
-import Head from 'next/head'
-import Link from 'next/link'
-import dynamic from 'next/dynamic'
 import cs from 'classnames'
-import { useRouter } from 'next/router'
-import { useSearchParam } from 'react-use'
-import BodyClassName from 'react-body-classname'
-import useDarkMode from 'use-dark-mode'
-import { PageBlock } from 'notion-types'
-
-import { Tweet, TwitterContextProvider } from 'react-static-tweets'
-
-// core notion renderer
-import { NotionRenderer, Code, Collection, CollectionRow } from 'react-notion-x'
-
-// utils
-import { getBlockTitle } from 'notion-utils'
-import { mapPageUrl, getCanonicalPageUrl } from 'lib/map-page-url'
-import { mapNotionImageUrl } from 'lib/map-image-url'
+import * as config from 'lib/config'
 import { getPageDescription } from 'lib/get-page-description'
 import { getPageTweet } from 'lib/get-page-tweet'
+import { mapNotionImageUrl } from 'lib/map-image-url'
+import { getCanonicalPageUrl, mapPageUrl } from 'lib/map-page-url'
 import { searchNotion } from 'lib/search-notion'
 import * as types from 'lib/types'
-import * as config from 'lib/config'
+import dynamic from 'next/dynamic'
+import Head from 'next/head'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+import { PageBlock } from 'notion-types'
+import { getBlockTitle } from 'notion-utils'
+import * as React from 'react'
+import BodyClassName from 'react-body-classname'
+import { Code, Collection, CollectionRow, NotionRenderer } from 'react-notion-x'
+import { Tweet, TwitterContextProvider } from 'react-static-tweets'
+import { useSearchParam } from 'react-use'
+import useDarkMode from 'use-dark-mode'
 
-// components
 import { CustomFont } from './CustomFont'
+import { Footer } from './Footer'
+import { GitHubShareButton } from './GitHubShareButton'
 import { Loading } from './Loading'
 import { Page404 } from './Page404'
-import { PageHead } from './PageHead'
 import { PageActions } from './PageActions'
-import { Footer } from './Footer'
+import { PageHead } from './PageHead'
+import { PageHeader } from './PageHeader/PageHeader'
 import { PageSocial } from './PageSocial'
-import { GitHubShareButton } from './GitHubShareButton'
 import { ReactUtterances } from './ReactUtterances'
-
 import styles from './styles.module.css'
 
+// core notion renderer
+// utils
+// components
 // const Code = dynamic(() =>
 //   import('react-notion-x').then((notion) => notion.Code)
 // )
@@ -214,6 +211,7 @@ export const NotionPage: React.FC<types.PageProps> = ({
 
       {isLiteMode && <BodyClassName className='notion-lite' />}
 
+      <PageHeader />
       <NotionRenderer
         bodyClassName={cs(
           styles.notion,
